@@ -187,7 +187,7 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Returns if the trial results in a win</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Returns of the trial results in a win</span>
 <span class="k">def</span> <span class="nf">MontyTrial</span><span class="p">(</span><span class="n">win_door</span><span class="p">,</span> <span class="n">selected_door</span><span class="p">,</span> <span class="n">switch</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">win_door</span> <span class="o">==</span> <span class="n">selected_door</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">switch</span><span class="p">):</span>
         <span class="k">return</span> <span class="mi">1</span>
@@ -245,8 +245,8 @@ window.onload = wrap_img;
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Seed:  1611073640
-10 Random integers between 1 &amp; 3:  [2 2 2 3 3 2 1 2 3 1]
+<pre>Seed:  1611189363
+10 Random integers between 1 &amp; 3:  [2 2 3 2 3 2 1 2 1 2]
 </pre>
 </div>
 </div>
@@ -306,8 +306,8 @@ window.onload = wrap_img;
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Simulating  100000  trials
-Probability of winning with no switching:  0.33394
-Probability of winning with always switching:  0.66606
+Probability of winning with no switching:  0.3345
+Probability of winning with always switching:  0.6655
 </pre>
 </div>
 </div>
@@ -346,7 +346,7 @@ Probability of winning with always switching:  0.66606
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>817 ms ± 145 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+<pre>1.03 s ± 442 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
 </pre>
 </div>
 </div>
@@ -439,11 +439,11 @@ Probability of winning with always switching:  0.66606
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Simulating  100000  trials
-Probability of winning with no switching:  0.33181
-Probability of winning with always switching:  0.6681900000000001
+Probability of winning with no switching:  0.33616
+Probability of winning with always switching:  0.66384
 Simulating  100000  trials in v2
-Probability of winning with no switching:  0.33161
-Probability of winning with always switching:  0.66839
+Probability of winning with no switching:  0.33048
+Probability of winning with always switching:  0.66952
 </pre>
 </div>
 </div>
@@ -478,9 +478,9 @@ Probability of winning with always switching:  0.66839
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Timing v1 Simulation on 1 million trials
-735 ms ± 16.1 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+768 ms ± 81.4 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
 Timing v2 Simulation on 1 million trials
-659 ms ± 25.5 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+589 ms ± 4.78 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
 </pre>
 </div>
 </div>
@@ -522,9 +522,9 @@ Timing v2 Simulation on 1 million trials
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Timing v1 trial function
-216 ns ± 17.3 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
+202 ns ± 10.1 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
 Timing v2 trial function
-178 ns ± 23.3 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
+210 ns ± 60.2 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
 </pre>
 </div>
 </div>
@@ -599,8 +599,8 @@ Timing v2 trial function
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Simulating  1000000  trials in v3 (Numpy Version)
-Probability of winning with no switching:  0.333419
-Probability of winning with switching:  0.666581
+Probability of winning with no switching:  0.334154
+Probability of winning with switching:  0.6658459999999999
 </pre>
 </div>
 </div>
@@ -644,11 +644,11 @@ Probability of winning with switching:  0.666581
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Timing v1 Simulation on 1 million trials
-661 ms ± 12.1 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+687 ms ± 15.3 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
 Timing v2 Simulation on 1 million trials
-576 ms ± 5.93 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+638 ms ± 175 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
 Timing v3 Simulation on 1 million trials
-26.4 ms ± 897 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+27 ms ± 1.63 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
 </pre>
 </div>
 </div>
@@ -750,14 +750,14 @@ Timing v3 Simulation on 1 million trials
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Simulating  1000000  trials
-Probability of winning with no switching:  0.333612
-Probability of winning with always switching:  0.666388
+Probability of winning with no switching:  0.333761
+Probability of winning with always switching:  0.666239
 Simulating  1000000  trials in v2
-Probability of winning with no switching:  0.333612
-Probability of winning with always switching:  0.666388
+Probability of winning with no switching:  0.333761
+Probability of winning with always switching:  0.666239
 Simulating  1000000  trials in v3 (Numpy Version)
-Probability of winning with no switching:  0.333612
-Probability of winning with switching:  0.666388
+Probability of winning with no switching:  0.333761
+Probability of winning with switching:  0.666239
 </pre>
 </div>
 </div>
@@ -804,11 +804,6 @@ Probability of winning with switching:  0.666388
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Timing v1 Simulation on 10 million trials
-6.68 s ± 395 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
-Timing v2 Simulation on 10 million trials
-5.73 s ± 498 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
-Timing v3 Simulation on 10 million trials
-38.6 ms ± 17.3 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
 </pre>
 </div>
 </div>
