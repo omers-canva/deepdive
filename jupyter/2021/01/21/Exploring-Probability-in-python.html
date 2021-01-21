@@ -727,7 +727,7 @@ Probability of winning with switching:  0.666239
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Results from all three versions are the same. Lets do a final timing run for 10 million trials</p>
+<p>Results from all three versions are the same. Lets do a final timing run for 1 million trials</p>
 
 </div>
 </div>
@@ -739,14 +739,14 @@ Probability of winning with switching:  0.666239
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">trials</span> <span class="o">=</span> <span class="mi">10000000</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">trials</span> <span class="o">=</span> <span class="mi">1000000</span>
 <span class="n">Winning_Door</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">trials</span><span class="p">)</span>
 <span class="n">Selected_Door</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">trials</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Timing v1 Simulation on 10 million trials&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Timing v1 Simulation on 1 million trials&quot;</span><span class="p">)</span>
 <span class="o">%</span><span class="k">timeit</span> MontySimulation(trials, Winning_Door, Selected_Door, True)
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Timing v2 Simulation on 10 million trials&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Timing v2 Simulation on 1 million trials&quot;</span><span class="p">)</span>
 <span class="o">%</span><span class="k">timeit</span> MontySimulationv2(trials, Winning_Door, Selected_Door, True)
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Timing v3 Simulation on 10 million trials&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Timing v3 Simulation on 1 million trials&quot;</span><span class="p">)</span>
 <span class="o">%</span><span class="k">timeit</span> MontySimulationv3(trials, Winning_Door, Selected_Door, True)
 </pre></div>
 
@@ -760,12 +760,12 @@ Probability of winning with switching:  0.666239
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Timing v1 Simulation on 10 million trials
-6.68 s ± 333 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
-Timing v2 Simulation on 10 million trials
-5.48 s ± 28.9 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
-Timing v3 Simulation on 10 million trials
-20.9 ms ± 1.49 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+<pre>Timing v1 Simulation on 1 million trials
+643 ms ± 7.51 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+Timing v2 Simulation on 1 million trials
+555 ms ± 11.9 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+Timing v3 Simulation on 1 million trials
+2.04 ms ± 151 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
 </pre>
 </div>
 </div>
