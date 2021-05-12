@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>The Average Sydney Suburb - Data munging in Pandas | Deepdive</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="The Average Sydney Suburb - Data munging in Pandas" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A personal journal and learning blog" />
+<meta property="og:description" content="A personal journal and learning blog" />
+<link rel="canonical" href="https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Data-Cleaning.html" />
+<meta property="og:url" content="https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Data-Cleaning.html" />
+<meta property="og:site_name" content="Deepdive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-05-11T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"A personal journal and learning blog","@type":"BlogPosting","headline":"The Average Sydney Suburb - Data munging in Pandas","url":"https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Data-Cleaning.html","datePublished":"2021-05-11T00:00:00-05:00","dateModified":"2021-05-11T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Data-Cleaning.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/deepdive/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://mindfire83.github.io/deepdive/feed.xml" title="Deepdive" /><link rel="shortcut icon" type="image/x-icon" href="/deepdive/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>The Average Sydney Suburb - Data munging in Pandas | Deepdive</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="The Average Sydney Suburb - Data munging in Pandas" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A personal journal and learning blog" />
+<meta property="og:description" content="A personal journal and learning blog" />
+<link rel="canonical" href="https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Data-Cleaning.html" />
+<meta property="og:url" content="https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Data-Cleaning.html" />
+<meta property="og:site_name" content="Deepdive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-05-11T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"A personal journal and learning blog","@type":"BlogPosting","headline":"The Average Sydney Suburb - Data munging in Pandas","url":"https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Data-Cleaning.html","datePublished":"2021-05-11T00:00:00-05:00","dateModified":"2021-05-11T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Data-Cleaning.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://mindfire83.github.io/deepdive/feed.xml" title="Deepdive" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/deepdive/">Deepdive</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/deepdive/about/">About Me</a><a class="page-link" href="/deepdive/search/">Search</a><a class="page-link" href="/deepdive/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">The Average Sydney Suburb - Data munging in Pandas</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-05-11T00:00:00-05:00" itemprop="datePublished">
+        May 11, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      10 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/deepdive/categories/#jupyter">jupyter</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/mindfire83/deepdive/tree/master/_notebooks/Average Sydney Suburb - Data Cleaning.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/deepdive/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/mindfire83/deepdive/master?filepath=_notebooks%2FAverage+Sydney+Suburb+-+Data+Cleaning.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/deepdive/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/mindfire83/deepdive/blob/master/_notebooks/Average Sydney Suburb - Data Cleaning.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/deepdive/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/Average Sydney Suburb - Data Cleaning.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-Average-Sydney-Suburb---Data-cleaning">The Average Sydney Suburb - Data cleaning<a class="anchor-link" href="#The-Average-Sydney-Suburb---Data-cleaning"> </a></h2><p>I have recently finished an eDx <a href="https://courses.edx.org/courses/course-v1:BerkeleyX+Data8.2x+1T2019a/course/">course</a> on inferential statistics from Duke university. This course does a good job of using resampling for inferential statistics.</p>
+<p>Applying what I have learned in this course, I want to figure out the most average Sydeny suburbs in terms of the country of birth of person (<strong>CBOP</strong>) and age.</p>
+<p>There is a lot of data available via <a href="https://www.abs.gov.au">ABS</a>. I used the <a href="https://www.abs.gov.au/websitedbs/censushome.nsf/home/tablebuilder">Census table builder</a> to get the CBOP and age data.</p>
+<p>In this notebook, I will clean and setup the data for my analysis</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Importing the libraries that I will use</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I have downloaded the following files from the 2016 Census that I will need to use for my analysis:</p>
+<ul>
+<li><strong>Population</strong><ul>
+<li>Total Sydney population</li>
+<li>Top 6 CBOP population for Sydney</li>
+<li>Total population for all of Sydney suburbs</li>
+<li>Top 6 CBOP population for all of Sydney suburbs</li>
+</ul>
+</li>
+<li><strong>Age</strong><ul>
+<li>Sydney's age in single digits</li>
+<li>Sydney's suburb's age in single digits</li>
+</ul>
+</li>
+</ul>
+<p>As useful as the <a href="https://www.abs.gov.au/websitedbs/censushome.nsf/home/tablebuilder">Census table builder</a> is, I could not get the data in the format that I needed - hence the need for this cleaning exercise. In the past I have made use of excel and pandas for cleaning data, however in this notebook I will attempt to clean all the data in pandas.</p>
+<p>Starting with Sydney's CBOP mix. My aim is to create a table with the top 6 CBOP and Others.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Read Sydney pop and top 6 cbop</span>
+<span class="n">sydney_pop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;greater_sydney_pop.csv&#39;</span><span class="p">,</span> <span class="n">skiprows</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">sydney_cbop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;top_6_cobp.csv&#39;</span><span class="p">,</span> <span class="n">skiprows</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For the Sydney population table, all I need is the total population value. I can get this from Index 0 and column 4823993</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">syd_pop</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sydney_pop</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;4823993&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sydney&#39;s population: &quot;</span><span class="p">,</span> <span class="n">syd_pop</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Sydney&#39;s population:  4823993
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now lets take a look at the Sydney CBOP table</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Using threshold values in drop na to only drop rows with 2 Na values.</span>
+<span class="c1">#This has the useful side effect of dropping the unnamed column as well</span>
+<span class="n">sydney_cbop</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">sydney_cbop</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="c1">#rename BPLP - 4 Digit Level column to Population</span>
+<span class="n">sydney_cbop</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="n">sydney_cbop</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="s1">&#39;Population&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="c1">#Drop info index</span>
+<span class="n">sydney_cbop</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;INFO&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="c1">#convert population numbers to integer</span>
+<span class="n">sydney_cbop</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sydney_cbop</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">)</span>
+<span class="c1">#Rename the total index value to CBOP Total. This will be used later to calculate the value of other countries</span>
+<span class="n">sydney_cbop</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;Total&#39;</span><span class="p">:</span> <span class="s1">&#39;CBOP Total&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">sydney_cbop</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sydney_cbop</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Index: 7 entries, England to CBOP Total
+Data columns (total 1 columns):
+ #   Column      Non-Null Count  Dtype
+---  ------      --------------  -----
+ 0   Population  7 non-null      int64
+dtypes: int64(1)
+memory usage: 112.0+ bytes
+                                  Population
+England                               151617
+Australia                            2752123
+China (excludes SARs and Taiwan)      224682
+India                                 130579
+Vietnam                                81041
+New Zealand                            86522
+CBOP Total                           3426561
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next step is to add the population of people who are not from any of the 6 top countries</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sydney_cbop</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;CBOP Total&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="n">syd_pop</span> <span class="o">-</span> <span class="n">sydney_cbop</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="s1">&#39;CBOP Total&#39;</span><span class="p">,</span> <span class="s1">&#39;Population&#39;</span><span class="p">]</span>
+<span class="n">sydney_cbop</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;CBOP Total&#39;</span> <span class="p">:</span> <span class="s1">&#39;Others&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">sydney_cbop</span><span class="o">.</span><span class="n">Population</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>4823996</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sydney_cbop</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Total Sydney Population &#39;</span><span class="p">,</span> <span class="n">sydney_cbop</span><span class="o">.</span><span class="n">Population</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>                                  Population
+England                               151617
+Australia                            2752123
+China (excludes SARs and Taiwan)      224682
+India                                 130579
+Vietnam                                81041
+New Zealand                            86522
+Others                               1397432
+
+Total Sydney Population  4823996
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>All set!, we now have a table with the top 6 natonalities (CBOP) of Sydney and an others column. Next step is to repeat this process for every suburb in the greater Sydney area.</p>
+<p><em>Note: It took me about 2 hours to figure out the best way to clean these two small dataframes and boil it down to a few lines of code. I am putting this here as a reminder to not get overwhelmed when I see posts where things like these seem to be the simplest of steps. Having gone through this exercise, its clear that data cleaning is very important and not as easy as it seems. Atleast when you are just getting started. Keep at it!!</em></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Load the top 6 CBOP by Suburb and total population by suburb files</span>
+<span class="n">suburb_cbop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;suburb_top_6_cobp.csv&#39;</span><span class="p">,</span> <span class="n">skiprows</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">suburb_pop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;total_suburb_population.csv&#39;</span><span class="p">,</span> <span class="n">skiprows</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Additional challenges in this dataset:<br />
+1) Index needs to be reset and forward filled to remove the NAN values from the index<br />
+2) When extracting the data from ABS, although I filtered on Sydney, it still gave me a list of all suburbs. The difference here is that for suburbs that are not in the Greater Sydney area, the population is 0. This should be easier to remove</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Reset Index</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="c1">#Forward fill the country name and copy only the country column. We need the NaNs for cleaning purposes</span>
+<span class="n">suburb_cbop</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">suburb_cbop</span><span class="o">.</span><span class="n">ffill</span><span class="p">()[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span>
+<span class="n">suburb_cbop</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>BPLP - 4 Digit Level</th>
+      <th>SSC (UR)</th>
+      <th>Unnamed: 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>England</td>
+      <td>Aarons Pass</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>England</td>
+      <td>Abbotsbury</td>
+      <td>40.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>England</td>
+      <td>Abbotsford (NSW)</td>
+      <td>181.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>England</td>
+      <td>Abercrombie</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>England</td>
+      <td>Abercrombie River</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>31681</th>
+      <td>Total</td>
+      <td>Migratory - Offshore - Shipping (NSW)</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>31682</th>
+      <td>Data Source: Census of Population and Housing,...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>31683</th>
+      <td>INFO</td>
+      <td>Cells in this table have been randomly adjuste...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>31684</th>
+      <td>Copyright Commonwealth of Australia, 2018, see...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>31685</th>
+      <td>ABS data licensed under Creative Commons, see ...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>31686 rows × 4 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Set index back to country</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;CBOP&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Removing rows with 2 NaN values</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">thresh</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">thresh</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">col_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Suburb&#39;</span><span class="p">,</span> <span class="s1">&#39;Population&#39;</span><span class="p">]</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">col_names</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Index: 31682 entries, England to Total
+Data columns (total 2 columns):
+ #   Column      Non-Null Count  Dtype  
+---  ------      --------------  -----  
+ 0   Suburb      31682 non-null  object 
+ 1   Population  31682 non-null  float64
+dtypes: float64(1), object(1)
+memory usage: 742.5+ KB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now that we have removed the NaN values, lets look at the numbers and clean those up as well. But it is not as simple as it seems. There could be suburbs in Sydney which do not have any person from one of the top 6 nationalities. In that case, I want to preserve the 0 associated with that particular nationality for my analysis. So before I start cleaning up the numbers, lets first clean up the total suburb population dataframe</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">suburb_pop</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">thresh</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_pop</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">thresh</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="c1">#Drop info column</span>
+<span class="n">suburb_pop</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;INFO&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">suburb_pop</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span>
+<span class="c1">#Convert population to integer</span>
+<span class="n">suburb_pop</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">suburb_pop</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">)</span>
+<span class="n">suburb_pop</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="s1">&#39;Suburb&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">suburb_pop</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sydney Population: &quot;</span><span class="p">,</span> <span class="n">suburb_pop</span><span class="o">.</span><span class="n">Population</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Index: 4526 entries, Aarons Pass to Migratory - Offshore - Shipping (NSW)
+Data columns (total 1 columns):
+ #   Column      Non-Null Count  Dtype
+---  ------      --------------  -----
+ 0   Population  4526 non-null   int64
+dtypes: int64(1)
+memory usage: 70.7+ KB
+None
+Sydney Population:  4823982
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The suburb_pop table now has the population of every suburb in Greater Sydney. For the remaining suburbs the population would be zero. So if we drop the 0 populations we should be left with Sydney suburbs only</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Get index names of suburbs with zero populations</span>
+<span class="n">zero_suburbs</span> <span class="o">=</span> <span class="n">suburb_pop</span><span class="p">[</span><span class="n">suburb_pop</span><span class="o">.</span><span class="n">Population</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+<span class="c1">#Drop these index names</span>
+<span class="n">suburb_pop</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">zero_suburbs</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_pop</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Index: 893 entries, Abbotsbury to Zetland
+Data columns (total 1 columns):
+ #   Column      Non-Null Count  Dtype
+---  ------      --------------  -----
+ 0   Population  893 non-null    int64
+dtypes: int64(1)
+memory usage: 14.0+ KB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Dropping the 0 population suburbs leaves us with 893 suburbs. I can also use the same index names to update the top nationalities data frame (<em>suburb_cbop</em>). For that I would first need to set the suburb as the index and then drop</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">suburb_cbop</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Suburb&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">loc</span><span class="p">[()]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CBOP</th>
+      <th>Population</th>
+    </tr>
+    <tr>
+      <th>Suburb</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Aarons Pass</th>
+      <td>England</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>Abbotsbury</th>
+      <td>England</td>
+      <td>40.0</td>
+    </tr>
+    <tr>
+      <th>Abbotsford (NSW)</th>
+      <td>England</td>
+      <td>181.0</td>
+    </tr>
+    <tr>
+      <th>Abercrombie</th>
+      <td>England</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>Abercrombie River</th>
+      <td>England</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Yuraygir</th>
+      <td>Total</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>Zara</th>
+      <td>Total</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>Zetland</th>
+      <td>Total</td>
+      <td>6618.0</td>
+    </tr>
+    <tr>
+      <th>No usual address (NSW)</th>
+      <td>Total</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>Migratory - Offshore - Shipping (NSW)</th>
+      <td>Total</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>31682 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">suburb_cbop</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">zero_suburbs</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Index: 6251 entries, Abbotsbury to Zetland
+Data columns (total 2 columns):
+ #   Column      Non-Null Count  Dtype  
+---  ------      --------------  -----  
+ 0   CBOP        6251 non-null   object 
+ 1   Population  6251 non-null   float64
+dtypes: float64(1), object(1)
+memory usage: 146.5+ KB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">suburb_cbop</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;CBOP&#39;</span><span class="p">,</span><span class="s1">&#39;Suburb&#39;</span><span class="p">],</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>Population</th>
+    </tr>
+    <tr>
+      <th>CBOP</th>
+      <th>Suburb</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="5" valign="top">England</th>
+      <th>Abbotsbury</th>
+      <td>40.0</td>
+    </tr>
+    <tr>
+      <th>Abbotsford (NSW)</th>
+      <td>181.0</td>
+    </tr>
+    <tr>
+      <th>Acacia Gardens</th>
+      <td>63.0</td>
+    </tr>
+    <tr>
+      <th>Agnes Banks</th>
+      <td>23.0</td>
+    </tr>
+    <tr>
+      <th>Airds</th>
+      <td>46.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th rowspan="5" valign="top">Total</th>
+      <th>Yellow Rock (Blue Mountains - NSW)</th>
+      <td>941.0</td>
+    </tr>
+    <tr>
+      <th>Yennora</th>
+      <td>868.0</td>
+    </tr>
+    <tr>
+      <th>Yerranderie</th>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>Yowie Bay</th>
+      <td>2725.0</td>
+    </tr>
+    <tr>
+      <th>Zetland</th>
+      <td>6618.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>6251 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">suburb_cbop</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Total&#39;</span><span class="p">,</span> <span class="s1">&#39;Zetland&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">suburb_pop</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Zetland&#39;</span><span class="p">])</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">loc</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Population    6618.0
+Name: (Total, Zetland), dtype: float64
+Population    10072
+Name: Zetland, dtype: int64
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;pandas.core.indexing._LocIndexer at 0x11af9f630&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finally we are now in a position to create an others row for each suburb in Sydney. The others row will contain the number of people who are not from the top 6 countries</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Joining the suburb top 6 with suburb totap population dataframes and extracting the &#39;Total&#39; index only</span>
+<span class="n">others_temp</span> <span class="o">=</span> <span class="n">suburb_cbop</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">suburb_pop</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Suburb&#39;</span><span class="p">,</span> <span class="n">rsuffix</span> <span class="o">=</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="s1">&#39;Total&#39;</span><span class="p">,</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">))]</span>
+<span class="c1">#Calculating the others population value</span>
+<span class="n">others_temp</span><span class="o">.</span><span class="n">Population</span> <span class="o">=</span> <span class="n">others_temp</span><span class="o">.</span><span class="n">Populationr</span> <span class="o">-</span> <span class="n">others_temp</span><span class="o">.</span><span class="n">Population</span>
+<span class="n">others_temp</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Populationr&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="c1">#Creating a final dataframe with others population value in Population_r column</span>
+<span class="n">suburb_cbop_final</span> <span class="o">=</span> <span class="n">suburb_cbop</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">others_temp</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Suburb&#39;</span><span class="p">,</span> <span class="n">rsuffix</span> <span class="o">=</span> <span class="s1">&#39;_r&#39;</span><span class="p">)</span>
+<span class="c1">#Setting the Total index value to Nan</span>
+<span class="n">suburb_cbop_final</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="s1">&#39;Total&#39;</span><span class="p">,</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)),</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="c1">#renaming index value Total to Others</span>
+<span class="n">suburb_cbop_final</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Total&#39;</span><span class="p">:</span><span class="s1">&#39;Others&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="c1">#Setting the right population value in the Others index</span>
+<span class="n">suburb_cbop_final</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">suburb_cbop_final</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span>
+                                          <span class="n">suburb_cbop_final</span><span class="p">[</span><span class="s1">&#39;Population_r&#39;</span><span class="p">],</span>
+                                          <span class="n">suburb_cbop_final</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">])</span>
+<span class="n">suburb_cbop_final</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Population_r&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop_final</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>Population</th>
+    </tr>
+    <tr>
+      <th>CBOP</th>
+      <th>Suburb</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="5" valign="top">England</th>
+      <th>Abbotsbury</th>
+      <td>40.0</td>
+    </tr>
+    <tr>
+      <th>Abbotsford (NSW)</th>
+      <td>181.0</td>
+    </tr>
+    <tr>
+      <th>Acacia Gardens</th>
+      <td>63.0</td>
+    </tr>
+    <tr>
+      <th>Agnes Banks</th>
+      <td>23.0</td>
+    </tr>
+    <tr>
+      <th>Airds</th>
+      <td>46.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th rowspan="5" valign="top">Others</th>
+      <th>Yellow Rock (Blue Mountains - NSW)</th>
+      <td>94.0</td>
+    </tr>
+    <tr>
+      <th>Yennora</th>
+      <td>751.0</td>
+    </tr>
+    <tr>
+      <th>Yerranderie</th>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>Yowie Bay</th>
+      <td>349.0</td>
+    </tr>
+    <tr>
+      <th>Zetland</th>
+      <td>3454.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>6251 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>That took a lot of steps and although I have setup what I wanted to, I refuse to believe that I cant find a more efficient way to do this calculation. Lets try this again</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#resetting the index in the suburb cbop file</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Suburb&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop_final</span> <span class="o">=</span> <span class="n">suburb_cbop</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">suburb_pop</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Suburb&#39;</span><span class="p">,</span> <span class="n">rsuffix</span> <span class="o">=</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">suburb_cbop_final</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">suburb_cbop_final</span><span class="p">[</span><span class="s1">&#39;CBOP&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Total&#39;</span><span class="p">,</span>
+                                    <span class="n">suburb_cbop_final</span><span class="p">[</span><span class="s1">&#39;Populationr&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">suburb_cbop_final</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">],</span>
+                                    <span class="n">suburb_cbop_final</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">])</span>
+<span class="n">suburb_cbop_final</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Populationr&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop_final</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CBOP</th>
+      <th>Population</th>
+    </tr>
+    <tr>
+      <th>Suburb</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Abbotsbury</th>
+      <td>England</td>
+      <td>40.0</td>
+    </tr>
+    <tr>
+      <th>Abbotsford (NSW)</th>
+      <td>England</td>
+      <td>181.0</td>
+    </tr>
+    <tr>
+      <th>Acacia Gardens</th>
+      <td>England</td>
+      <td>63.0</td>
+    </tr>
+    <tr>
+      <th>Agnes Banks</th>
+      <td>England</td>
+      <td>23.0</td>
+    </tr>
+    <tr>
+      <th>Airds</th>
+      <td>England</td>
+      <td>46.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Yellow Rock (Blue Mountains - NSW)</th>
+      <td>Total</td>
+      <td>94.0</td>
+    </tr>
+    <tr>
+      <th>Yennora</th>
+      <td>Total</td>
+      <td>751.0</td>
+    </tr>
+    <tr>
+      <th>Yerranderie</th>
+      <td>Total</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>Yowie Bay</th>
+      <td>Total</td>
+      <td>349.0</td>
+    </tr>
+    <tr>
+      <th>Zetland</th>
+      <td>Total</td>
+      <td>3454.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>6251 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#As a final step, renaming Total to Others</span>
+<span class="n">suburb_cbop_final</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop_final</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;CBOP&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop_final</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;Total&#39;</span><span class="p">:</span> <span class="s1">&#39;Others&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>That was simpler. Not I will save my clean files for part two.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">suburb_cbop_final</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Suburb</th>
+      <th>Population</th>
+    </tr>
+    <tr>
+      <th>CBOP</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>England</th>
+      <td>Abbotsbury</td>
+      <td>40.0</td>
+    </tr>
+    <tr>
+      <th>England</th>
+      <td>Abbotsford (NSW)</td>
+      <td>181.0</td>
+    </tr>
+    <tr>
+      <th>England</th>
+      <td>Acacia Gardens</td>
+      <td>63.0</td>
+    </tr>
+    <tr>
+      <th>England</th>
+      <td>Agnes Banks</td>
+      <td>23.0</td>
+    </tr>
+    <tr>
+      <th>England</th>
+      <td>Airds</td>
+      <td>46.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Others</th>
+      <td>Yellow Rock (Blue Mountains - NSW)</td>
+      <td>94.0</td>
+    </tr>
+    <tr>
+      <th>Others</th>
+      <td>Yennora</td>
+      <td>751.0</td>
+    </tr>
+    <tr>
+      <th>Others</th>
+      <td>Yerranderie</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>Others</th>
+      <td>Yowie Bay</td>
+      <td>349.0</td>
+    </tr>
+    <tr>
+      <th>Others</th>
+      <td>Zetland</td>
+      <td>3454.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>6251 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sydney_cbop</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;Sydney_CBOP_Clean.csv&#39;</span><span class="p">)</span>
+<span class="n">suburb_cbop_final</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;Sydney_Suburb_CBOP_Clean.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="mindfire83/deepdive"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Data-Cleaning.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/deepdive/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/deepdive/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/deepdive/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>A personal journal and learning blog</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/deepdive/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,2117 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Average Sydney Suburb - Data processing in Pandas | Deepdive</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Average Sydney Suburb - Data processing in Pandas" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A personal journal and learning blog" />
+<meta property="og:description" content="A personal journal and learning blog" />
+<link rel="canonical" href="https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Nationality.html" />
+<meta property="og:url" content="https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Nationality.html" />
+<meta property="og:site_name" content="Deepdive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-05-11T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"A personal journal and learning blog","@type":"BlogPosting","headline":"Average Sydney Suburb - Data processing in Pandas","url":"https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Nationality.html","datePublished":"2021-05-11T00:00:00-05:00","dateModified":"2021-05-11T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Nationality.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/deepdive/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://mindfire83.github.io/deepdive/feed.xml" title="Deepdive" /><link rel="shortcut icon" type="image/x-icon" href="/deepdive/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Average Sydney Suburb - Data processing in Pandas | Deepdive</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Average Sydney Suburb - Data processing in Pandas" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A personal journal and learning blog" />
+<meta property="og:description" content="A personal journal and learning blog" />
+<link rel="canonical" href="https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Nationality.html" />
+<meta property="og:url" content="https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Nationality.html" />
+<meta property="og:site_name" content="Deepdive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-05-11T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"A personal journal and learning blog","@type":"BlogPosting","headline":"Average Sydney Suburb - Data processing in Pandas","url":"https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Nationality.html","datePublished":"2021-05-11T00:00:00-05:00","dateModified":"2021-05-11T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Nationality.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://mindfire83.github.io/deepdive/feed.xml" title="Deepdive" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/deepdive/">Deepdive</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/deepdive/about/">About Me</a><a class="page-link" href="/deepdive/search/">Search</a><a class="page-link" href="/deepdive/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Average Sydney Suburb - Data processing in Pandas</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-05-11T00:00:00-05:00" itemprop="datePublished">
+        May 11, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      10 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/deepdive/categories/#jupyter">jupyter</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/mindfire83/deepdive/tree/master/_notebooks/Average Sydney Suburb - Nationality.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/deepdive/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/mindfire83/deepdive/master?filepath=_notebooks%2FAverage+Sydney+Suburb+-+Nationality.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/deepdive/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/mindfire83/deepdive/blob/master/_notebooks/Average Sydney Suburb - Nationality.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/deepdive/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/Average Sydney Suburb - Nationality.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-Average-Sydney-Suburbs---Nationality-edition">The Average Sydney Suburbs - Nationality edition<a class="anchor-link" href="#The-Average-Sydney-Suburbs---Nationality-edition"> </a></h2><p>In this notebook, I want to investigate the multicultural background of Sydney suburbs and compare that to Sydney's overall composition. I intend to do this via resampling and calculating the associated p-value for every suburb. This will highlight the suburbs which are close to Sydney's overall composition (hence average) and those that are not average.</p>
+<p>My hypothesis (which also sounds rather obvious) is that the multicultural ccomposition of most of Sydney's suburbs is not random, however I am also curious to see the suburbs where I cannot prove this.</p>
+<p>In <a href="https://github.com/mindfire83/Average-Sydney-Suburb/blob/master/Average%20Sydney%20Suburb%20-%20Data%20Cleaning.ipynb">this notebook</a> I cleaned the top 6 nationality data for Sydney. In this notebook, we will use the cleaned data sets to explore Sydney's average suburbs</p>
+<h3 id="Part-1:-Setting-up-the-data">Part 1: Setting up the data<a class="anchor-link" href="#Part-1:-Setting-up-the-data"> </a></h3><p>I have two datasets:</p>
+<ul>
+<li>Sydney's total population split by the top 6 Countries of birth of person (CBOP) and others</li>
+<li>Population of each suburb in Sydney split by the top 6 CBOP and others</li>
+</ul>
+<p>In this part, I want to setup the data so that I can get the 'Total Variation Distance' of each Suburb's nationality composition vs Sydney's nationality composition</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> 
+<span class="kn">import</span> <span class="nn">matplotlib.ticker</span> <span class="k">as</span> <span class="nn">mtick</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Reading the cleaned up data sets</span>
+<span class="n">sydney_cbop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;Sydney_CBOP_Clean.csv&#39;</span><span class="p">)</span>
+<span class="n">suburb_cbop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;Sydney_Suburb_CBOP_Clean.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sydney_cbop</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CBOP&#39;</span><span class="p">,</span> <span class="s1">&#39;Population&#39;</span><span class="p">]</span>
+<span class="n">sydney_cbop</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;CBOP&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">sydney_cbop</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Population</th>
+    </tr>
+    <tr>
+      <th>CBOP</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>England</th>
+      <td>151617</td>
+    </tr>
+    <tr>
+      <th>Australia</th>
+      <td>2752123</td>
+    </tr>
+    <tr>
+      <th>China (excludes SARs and Taiwan)</th>
+      <td>224682</td>
+    </tr>
+    <tr>
+      <th>India</th>
+      <td>130579</td>
+    </tr>
+    <tr>
+      <th>Vietnam</th>
+      <td>81041</td>
+    </tr>
+    <tr>
+      <th>New Zealand</th>
+      <td>86522</td>
+    </tr>
+    <tr>
+      <th>Others</th>
+      <td>1397432</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Lets start with exploring Sydney&#39;s overall population breakdown</span>
+<span class="n">sydney_cbop</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Population&#39;</span><span class="p">,</span><span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sydney_cbop</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;China (excludes SARs and Taiwan)&#39;</span><span class="p">:</span> <span class="s1">&#39;China&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="c1">#Calculate percentage of each Nationality</span>
+<span class="n">sydney_cbop</span><span class="p">[</span><span class="s1">&#39;Percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sydney_cbop</span><span class="o">.</span><span class="n">Population</span><span class="o">/</span> <span class="n">sydney_cbop</span><span class="o">.</span><span class="n">Population</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">sydney_cbop</span><span class="o">.</span><span class="n">Percentage</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">sydney_cbop</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">sydney_cbop</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mtick</span><span class="o">.</span><span class="n">PercentFormatter</span><span class="p">())</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Sydney Population Composition&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">sydney_cbop</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+" />
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Population</th>
+      <th>Percentage</th>
+    </tr>
+    <tr>
+      <th>CBOP</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Australia</th>
+      <td>2752123</td>
+      <td>0.570507</td>
+    </tr>
+    <tr>
+      <th>Others</th>
+      <td>1397432</td>
+      <td>0.289683</td>
+    </tr>
+    <tr>
+      <th>China</th>
+      <td>224682</td>
+      <td>0.046576</td>
+    </tr>
+    <tr>
+      <th>England</th>
+      <td>151617</td>
+      <td>0.031430</td>
+    </tr>
+    <tr>
+      <th>India</th>
+      <td>130579</td>
+      <td>0.027069</td>
+    </tr>
+    <tr>
+      <th>New Zealand</th>
+      <td>86522</td>
+      <td>0.017936</td>
+    </tr>
+    <tr>
+      <th>Vietnam</th>
+      <td>81041</td>
+      <td>0.016800</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>About 57% of the population in Sydney was born in Australia.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Adding an ID column to the Sydney population dataframe. This will help ensure that I can align values correctly</span>
+<span class="c1">#when I combine thisdata with the suburb populations</span>
+<span class="n">sydney_cbop</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sydney_cbop</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">index</span>
+<span class="n">sydney_cbop</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Population</th>
+      <th>Percentage</th>
+      <th>ID</th>
+    </tr>
+    <tr>
+      <th>CBOP</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Australia</th>
+      <td>2752123</td>
+      <td>0.570507</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Others</th>
+      <td>1397432</td>
+      <td>0.289683</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>China</th>
+      <td>224682</td>
+      <td>0.046576</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>England</th>
+      <td>151617</td>
+      <td>0.031430</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>India</th>
+      <td>130579</td>
+      <td>0.027069</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>New Zealand</th>
+      <td>86522</td>
+      <td>0.017936</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>Vietnam</th>
+      <td>81041</td>
+      <td>0.016800</td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Lets now take a look at the Suburb nationality table</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Population</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>6251.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>771.674452</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1849.102994</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>-3.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>11.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>77.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>474.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>22907.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#We have a few cases where the Other population is &lt; 0. We will need to set it to zero</span>
+
+<span class="n">suburb_cbop</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">suburb_cbop</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span>
+                                    <span class="mi">0</span><span class="p">,</span>
+                                    <span class="n">suburb_cbop</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">])</span>
+<span class="c1">#Checking for &lt; 0 population. This should return an empty dataset</span>
+<span class="n">suburb_cbop</span><span class="p">[</span><span class="n">suburb_cbop</span><span class="o">.</span><span class="n">Population</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 0 entries
+Data columns (total 3 columns):
+ #   Column      Non-Null Count  Dtype  
+---  ------      --------------  -----  
+ 0   CBOP        0 non-null      object 
+ 1   Suburb      0 non-null      object 
+ 2   Population  0 non-null      float64
+dtypes: float64(1), object(2)
+memory usage: 0.0+ bytes
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Cleaning the data a bit and setting suburb as the index</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;CBOP&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;China (excludes SARs and Taiwan)&#39;</span><span class="p">:</span> <span class="s1">&#39;China&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Suburb&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CBOP</th>
+      <th>Population</th>
+    </tr>
+    <tr>
+      <th>Suburb</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Abbotsbury</th>
+      <td>England</td>
+      <td>40.0</td>
+    </tr>
+    <tr>
+      <th>Abbotsford (NSW)</th>
+      <td>England</td>
+      <td>181.0</td>
+    </tr>
+    <tr>
+      <th>Acacia Gardens</th>
+      <td>England</td>
+      <td>63.0</td>
+    </tr>
+    <tr>
+      <th>Agnes Banks</th>
+      <td>England</td>
+      <td>23.0</td>
+    </tr>
+    <tr>
+      <th>Airds</th>
+      <td>England</td>
+      <td>46.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Yellow Rock (Blue Mountains - NSW)</th>
+      <td>Others</td>
+      <td>94.0</td>
+    </tr>
+    <tr>
+      <th>Yennora</th>
+      <td>Others</td>
+      <td>751.0</td>
+    </tr>
+    <tr>
+      <th>Yerranderie</th>
+      <td>Others</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>Yowie Bay</th>
+      <td>Others</td>
+      <td>349.0</td>
+    </tr>
+    <tr>
+      <th>Zetland</th>
+      <td>Others</td>
+      <td>3454.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>6251 rows × 2 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next step is to get the composition for every suburb in Sydney. For this we will use Panda's groupby function with the transform function</p>
+<p>_Note: Took me some time to figure this out. <a href="https://pbpython.com/pandas_transform.html">This</a> was the best way that I found_</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">suburb_cbop</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop</span><span class="p">[</span><span class="s1">&#39;Percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">suburb_cbop</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">suburb_cbop</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Suburb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">Population</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span>
+<span class="n">suburb_cbop</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Suburb</th>
+      <th>CBOP</th>
+      <th>Population</th>
+      <th>Percentage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Abbotsbury</td>
+      <td>England</td>
+      <td>40.0</td>
+      <td>0.009416</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Abbotsford (NSW)</td>
+      <td>England</td>
+      <td>181.0</td>
+      <td>0.033674</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Acacia Gardens</td>
+      <td>England</td>
+      <td>63.0</td>
+      <td>0.016570</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Agnes Banks</td>
+      <td>England</td>
+      <td>23.0</td>
+      <td>0.025584</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Airds</td>
+      <td>England</td>
+      <td>46.0</td>
+      <td>0.015726</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>6246</th>
+      <td>Yellow Rock (Blue Mountains - NSW)</td>
+      <td>Others</td>
+      <td>94.0</td>
+      <td>0.090211</td>
+    </tr>
+    <tr>
+      <th>6247</th>
+      <td>Yennora</td>
+      <td>Others</td>
+      <td>751.0</td>
+      <td>0.465304</td>
+    </tr>
+    <tr>
+      <th>6248</th>
+      <td>Yerranderie</td>
+      <td>Others</td>
+      <td>3.0</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>6249</th>
+      <td>Yowie Bay</td>
+      <td>Others</td>
+      <td>349.0</td>
+      <td>0.113570</td>
+    </tr>
+    <tr>
+      <th>6250</th>
+      <td>Zetland</td>
+      <td>Others</td>
+      <td>3454.0</td>
+      <td>0.342659</td>
+    </tr>
+  </tbody>
+</table>
+<p>6251 rows × 4 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Setting suburb as index</span>
+<span class="n">suburb_cbop</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Suburb&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">suburb_cbop</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CBOP</th>
+      <th>Population</th>
+      <th>Percentage</th>
+    </tr>
+    <tr>
+      <th>Suburb</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Abbotsbury</th>
+      <td>England</td>
+      <td>40.0</td>
+      <td>0.009416</td>
+    </tr>
+    <tr>
+      <th>Abbotsford (NSW)</th>
+      <td>England</td>
+      <td>181.0</td>
+      <td>0.033674</td>
+    </tr>
+    <tr>
+      <th>Acacia Gardens</th>
+      <td>England</td>
+      <td>63.0</td>
+      <td>0.016570</td>
+    </tr>
+    <tr>
+      <th>Agnes Banks</th>
+      <td>England</td>
+      <td>23.0</td>
+      <td>0.025584</td>
+    </tr>
+    <tr>
+      <th>Airds</th>
+      <td>England</td>
+      <td>46.0</td>
+      <td>0.015726</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Yellow Rock (Blue Mountains - NSW)</th>
+      <td>Others</td>
+      <td>94.0</td>
+      <td>0.090211</td>
+    </tr>
+    <tr>
+      <th>Yennora</th>
+      <td>Others</td>
+      <td>751.0</td>
+      <td>0.465304</td>
+    </tr>
+    <tr>
+      <th>Yerranderie</th>
+      <td>Others</td>
+      <td>3.0</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>Yowie Bay</th>
+      <td>Others</td>
+      <td>349.0</td>
+      <td>0.113570</td>
+    </tr>
+    <tr>
+      <th>Zetland</th>
+      <td>Others</td>
+      <td>3454.0</td>
+      <td>0.342659</td>
+    </tr>
+  </tbody>
+</table>
+<p>6251 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Part-2:-Hypothesis-testing-on-population-varience">Part 2: Hypothesis testing on population varience<a class="anchor-link" href="#Part-2:-Hypothesis-testing-on-population-varience"> </a></h2><p>In this part, I will:<br />
+1) Assume that overall Sydney's population composition would hold true for all suburbs<br />
+2) For each suburb, I will draw samples from Sydney's population (sample size will be equal to suburbs's total population)<br />
+3) Calculate the total variation distance (TVD) of the samples from Sydney's actual population composition. A total variation distance of 0 means that the nationality proportions are the same. Total variation distance is calculated using the absolute difference in population proportions which means that the minimum value is 0<br />
+4) Compare the results to the actual observed population variation</p>
+<p>My null hypothesis is that the population of every suburb is completely due to chance. Using the 4 steps above for every suburb will help determine if this hypothesis is true</p>
+<p>First, lets start with one suburb to see how this works</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test</span> <span class="o">=</span> <span class="n">suburb_cbop</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Artarmon&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sydney_cbop</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;CBOP&#39;</span><span class="p">,</span> <span class="n">lsuffix</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">)</span>
+<span class="n">test</span><span class="p">[</span><span class="s1">&#39;Var&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">PercentageW</span> <span class="o">-</span> <span class="n">test</span><span class="o">.</span><span class="n">Percentage</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">))</span> <span class="c1">#using display to print a pretty version of the data frame</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;TVD between overall Sydney population and Artarmon population: &quot;</span><span class="p">,</span> <span class="n">test</span><span class="o">.</span><span class="n">Var</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Artarmon&#39;s population: &quot;</span><span class="p">,</span> <span class="n">test</span><span class="o">.</span><span class="n">PopulationW</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CBOP</th>
+      <th>PopulationW</th>
+      <th>PercentageW</th>
+      <th>Population</th>
+      <th>Percentage</th>
+      <th>ID</th>
+      <th>Var</th>
+    </tr>
+    <tr>
+      <th>Suburb</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Artarmon</th>
+      <td>Australia</td>
+      <td>4428.0</td>
+      <td>0.465077</td>
+      <td>2752123</td>
+      <td>0.570507</td>
+      <td>0</td>
+      <td>0.105430</td>
+    </tr>
+    <tr>
+      <th>Artarmon</th>
+      <td>Others</td>
+      <td>3153.0</td>
+      <td>0.331163</td>
+      <td>1397432</td>
+      <td>0.289683</td>
+      <td>1</td>
+      <td>0.041479</td>
+    </tr>
+    <tr>
+      <th>Artarmon</th>
+      <td>China</td>
+      <td>924.0</td>
+      <td>0.097049</td>
+      <td>224682</td>
+      <td>0.046576</td>
+      <td>2</td>
+      <td>0.050473</td>
+    </tr>
+    <tr>
+      <th>Artarmon</th>
+      <td>England</td>
+      <td>314.0</td>
+      <td>0.032980</td>
+      <td>151617</td>
+      <td>0.031430</td>
+      <td>3</td>
+      <td>0.001550</td>
+    </tr>
+    <tr>
+      <th>Artarmon</th>
+      <td>India</td>
+      <td>455.0</td>
+      <td>0.047789</td>
+      <td>130579</td>
+      <td>0.027069</td>
+      <td>4</td>
+      <td>0.020720</td>
+    </tr>
+    <tr>
+      <th>Artarmon</th>
+      <td>New Zealand</td>
+      <td>183.0</td>
+      <td>0.019221</td>
+      <td>86522</td>
+      <td>0.017936</td>
+      <td>5</td>
+      <td>0.001285</td>
+    </tr>
+    <tr>
+      <th>Artarmon</th>
+      <td>Vietnam</td>
+      <td>64.0</td>
+      <td>0.006722</td>
+      <td>81041</td>
+      <td>0.016800</td>
+      <td>6</td>
+      <td>0.010078</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>TVD between overall Sydney population and Artarmon population:  0.23101455275608412
+Artarmon&#39;s population:  9521.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The current TVD of Artarmon's population compared to Sydney is 0.23. Next step would be to draw Artarmon's population sized samples based on <em>Sydney's</em> nationality breakdown. Then calculate the TVD of these samples and see how they compare to the actual TVD</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Extrating population percentages as numpy arrays for the multinomial distribution</span>
+<span class="n">Syd_pop_perc</span> <span class="o">=</span> <span class="n">sydney_cbop</span><span class="o">.</span><span class="n">Percentage</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">Art_pop_perc</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">PercentageW</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">Art_pop</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">PopulationW</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="c1">#Generating 100000 multinomial samples of the size of Artarmon&#39;s population and Sydney&#39;s nationality breakdown </span>
+<span class="c1">#and dividing by Artarmon&#39;s population</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multinomial</span><span class="p">(</span><span class="n">Art_pop</span><span class="p">,</span><span class="n">Syd_pop_perc</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">100000</span><span class="p">))</span><span class="o">/</span><span class="n">Art_pop</span>
+<span class="c1">#Calculating TVD</span>
+<span class="n">variations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">samples</span> <span class="o">-</span> <span class="n">Syd_pop_perc</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average TVD: &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">variations</span><span class="p">))</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Standard Dev: &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">variations</span><span class="p">))</span>
+<span class="n">variations</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Average TVD:  0.014365581508095708
+Standard Dev:  0.005687543922900055
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(100000,)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The observed TVD of 0.23 is mush higher than the sample average TVD. Lets plot these results to get a better idea of the difference</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">variations</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Var Dist&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;TVD&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="c1">#ax.set_ylabel(&quot;Frequency&quot;,fontsize=16)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">Var</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed TVD&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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n8whBphk7373u/Pb3/42P//5z7P11ltn6dKlOeyww/K0pz0tL33pSzfquR966KHMnLnxPvr32muvLFmyJMlIsP/mN7+Ziy++eHV90aJF+e53v5vDDjtsddt5552Xd77znavXL7744uy5555Jkq997Wt51atelUsvvTT777//Rus30DcjxACT6NZbb81FF12Us88+O1tvvXWSZM8998xf/uVf5iMf+cjq7e6+++687nWvy/z58/Pyl788t99+e5LkyiuvzL777psFCxbk+c9/fi688MIkyT333JN3vOMdedGLXpS99947J5988uqR2IMPPjinnnpqDjnkkBxxxBF5+9vfnk9+8pOrz7V06dLssssuaa2t9TjXXXdd9t9//+y7775561vfmgceeGC93/+xxx6bc889d/X6L3/5y1xzzTV53etet8btX/va1+aEE07IGWecsd7nAhiWEWKgL6eckgxGMCfcggXJmWeudZNrr702z3nOc/K0pz3tMe0HHHBAPvShD61ev+KKK7JkyZLstttu+chHPpKTTz45F198cf7u7/4u73vf+3L00UentZa77747SfL+978/Bx10UD7/+c/nkUceyVFHHZUvfOELq0dely5dmksvvTQzZ87M5ZdfnpNPPjknn3xykpEpC3/yJ3+SqlrrcY4++ui8973vzdve9rb86Ec/ykte8pL1/ic65phj8pGPfCR33XVXnvrUp+a8887LG9/4xjzpSU96wn3233//fOMb31jvcwEMSyBmgy1avNxjnGFIrbWhtjvwwAOz2267JUne8Y53ZK+99kqSvOxlL8vf/u3f5tZbb80rXvGK1dMIvvGNb+Sqq67Kxz/+8STJ/fffnzlz5qw+3lve8pbVUyUWLlyYe++9N9dcc0322GOPXHjhhfnhD3+41uPcc889Wbp0aY4++ugkIwH+0T6tj9mzZ+eQQw7JokWLcuKJJ+aCCy7IV7/61bXuM+y/GcB4CcRAX9Yxgrux7bXXXrn55puzcuXKx4wS/+hHP8ree++9xn1aa6tvGXfKKafk8MMPz/e+97285z3vyStf+cr8zd/8TVprueSSS7LLLrus8RhPecpTHrN+zDHH5Pzzz8/BBx+c5z3vedlpp51Wn2tNx7nnnnsm7LZ1xx13XP76r/86u+66a/7wD/8wL3rRi9a6/Y9//OPVc4oBNgZziAEm0bx58/L6178+J5544uo5uEuXLs1HP/rRfPjDH1693b/927/lF7/4RZKRL5297GUvS5LcdNNNefazn53jjz8+J598cq666qokyatf/eqcfvrpq+f73nnnnbnllluesB9ve9vbcuGFF+bzn/98jj322NXtT3ScbbfdNnvuuWcWLVqUJLnqqqty7bXXjuvf4FWvelVuv/32nHrqqTnuuOPWuu3Xv/71nH322Xn/+98/rnMBDMMIMcAkO/vss/PBD34we+yxR7bccstsvfXW+eQnP5mDDjpo9TYHHXRQPvzhD+fnP/95nv70p+eLX/xikuRTn/pUfvCDH2TLLbfMVlttlU9/+tNJkjPPPDN//ud/nvnz56eqstVWW+XMM8/MzjvvvMY+zJ07N3vssUcuu+yy1V/MW9dxLrjgghx77LH5h3/4h+y333454IADxvX+Z86cmWOOOSaf+MQn8q1vfetx9SOPPDJbbbVV7rvvvuyxxx751re+Ne5zAQyjptvcrKqal+SWW265JfPmzZvazozifrwjzCVmU3P99dfnec973lR3g43E7xemmYMPHnm97LJJPe2yZcseHSDYubW2bGzdlAkAALomEAMA0DWBGACArgnEE8D8YQCA6UsgZkL54wAAmG4EYgAAuiYQM+GMEgMA04kHcwDd2Vh/tA1zH+7DDjssf/zHf5zjjz9+dVtrLbvsskvOP//8vPSlLx33+U877bR89rOfzY477pj77rsv2223XY4++uicdNJJmTFjRn71q1/lqKOOyg9+8IMnPMayZcvyne98J+9617vG3Q+A6cYIMcAkOu6443Luuec+pu2yyy7LzJkz1ysMP/TQQ2tsP+aYY3L11VfnpptuykUXXZQvf/nLed/73pck2WGHHdYahpORQPyP//iPQ/cDYHMgELNRLFq8fPUC/LfXvOY1ufnmm3Pdddetbjv33HNz7LHHJkm+//3v58UvfnH22Wef7LXXXvnyl7+8eruDDz44p556ag455JAcccQR6zzXLrvski984Qs5++yzc/fdd2fZsmXZfvvtkyT3339/Xv/612ePPfbI/Pnz84Y3vCFJctJJJ+W6667LggULcuSRR07kWwfYZJkyATCJttxyy7zlLW/Jeeedl4997GO59957c8kll+T6669Pkuy777654oorMmPGjPz617/Ofvvtl0MPPTRPfepTkyRLly7NpZdempkzh/v43n333fPkJz85N954Y2bPnr26/dJLL81dd921OpjfddddSZKzzjorH/jAB/KTn/xkIt82wCbNCDHAJHv729+eL37xi3nooYdy0UUX5cADD8yOO+6YJLnjjjty5JFHZs8998yhhx6alStX5sYbb1y971ve8pahw/DazJ8/PzfccENOOumkfPWrX81WW221wccEmK4EYoBJNn/+/Dzzmc/Mt7/97Zx77rk57rjjVtdOPPHEHHzwwbn22muzZMmSzJkzJw888MDq+lOe8pT1OteNN96Y+++/P7vvvvtj2nfZZZdcf/31ecUrXpHvfe97mT9//mPOA9ATgZiNzjxieLzjjjsup512Wm666aa8+tWvXt2+atWqzJs3L1WV7373u7n55pvHfY5ly5bl7W9/e0488cRsu+22j6mtWLEiM2bMyGte85p84hOfyB133JGVK1dm2223zd133z3ucwJMR+YQbyBhD6afYW6PtrEdddRR+bM/+7Mcf/zx2XLLLVe3n3766Xn3u9+d008/PXvvvXf23nvv9TruBRdckO9///u5//77s+222+aoo47Ke97znsdtd+211+Yv/uIvkiQPP/xwPvjBD2aHHXbI7Nmzs9tuu2XPPffM7rvvnosvvnjD3ijANFCttanuw3qpqnlJbrnlllsyb968qe1MBOL1tSkEEfpy/fXX53nPe95Ud4ONxO8XppmDDx55veyyST3tsmXLsvPOOyfJzq21ZWPrpkwAANA1gZhJ5d7EAMCmRiAGAKBrAjFTwkgxk+mRRx6Z6i6wEfi9AhNFIGZKCcVsbNtss01uv/32/O53v8t0+xIxa9Zay+9+97vcfvvt2Wabbaa6O8BmwG3XxkmQm3iLFi93Fwom3Jw5c3LnnXfm1ltvzUMPPTTV3WGCzJw5M9ttt1223377qe4KsBkQiMdBGJ5Yo/89hWIm2hZbbJHZs2dn9uzZU90VADZRUxaIq2rXJOcneXqS/0pyTGvtF1PVHzYdY//gEJABgI1pKucQn5PkrNbarknOSvK5KewLmzAj8gDAxjQlI8RVNTvJvkleMWi6MMlnquoZrbU7Rm03K8msMbvvlCQrVqyYjK4+ztevvn1Kztu7T/7LbUmSI/bZMcnI7+GIfXZc/QoATAMPPDDyumzZpJ52VG6csab6lDy6uar2S3JBa+35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
+" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Based on the graph, it is clear that Artarmon's population breakdown is not due to a random placement. Lets now scale this process up for all of Sydney's suburbs (with a population size &gt; 1000)
+First I will create a dataframe with Suburb, total population, observed and sample TVD. Then I will write a function to calculate and fill in the observed and sample TVD for all suburbs</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">suburb_TVD</span> <span class="o">=</span> <span class="n">suburb_cbop</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Suburb&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="c1">#Excluding suburbs with population &lt; 1000</span>
+<span class="n">suburb_TVD</span> <span class="o">=</span> <span class="n">suburb_TVD</span><span class="p">[</span><span class="n">suburb_TVD</span><span class="o">.</span><span class="n">Population</span> <span class="o">&gt;=</span> <span class="mi">1000</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1">#Add observed and sample TVD column and set to 0</span>
+<span class="n">suburb_TVD</span><span class="p">[</span><span class="s1">&#39;observed_TVD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">suburb_TVD</span><span class="p">[</span><span class="s1">&#39;sample_TVD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">suburb_TVD</span><span class="p">[</span><span class="s1">&#39;sample_STD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">suburb_TVD</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Percentage&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">suburb_TVD</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Population</th>
+      <th>observed_TVD</th>
+      <th>sample_TVD</th>
+      <th>sample_STD</th>
+    </tr>
+    <tr>
+      <th>Suburb</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Abbotsbury</th>
+      <td>4248.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Abbotsford (NSW)</th>
+      <td>5375.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Acacia Gardens</th>
+      <td>3802.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Airds</th>
+      <td>2925.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Alexandria</th>
+      <td>8253.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Yarrawarrah</th>
+      <td>2731.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Yellow Rock (Blue Mountains - NSW)</th>
+      <td>1042.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Yennora</th>
+      <td>1614.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Yowie Bay</th>
+      <td>3073.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Zetland</th>
+      <td>10080.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>674 rows × 4 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#There are probably faster ways to do this, but its late, im tired and I want to hit my target of the day</span>
+<span class="c1">#So ill create a function to take in each suburb and calcualte the observed TVD and sample TVD of 100000 trials</span>
+
+<span class="k">def</span> <span class="nf">calculate_TVD</span><span class="p">(</span><span class="n">suburb_df</span><span class="p">,</span> <span class="n">Syd_pop_perc</span> <span class="o">=</span> <span class="n">Syd_pop_perc</span><span class="p">):</span>
+    <span class="n">Sub_pop_perc</span> <span class="o">=</span> <span class="n">suburb_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">PercentageW</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">Sub_pop</span> <span class="o">=</span> <span class="n">suburb_df</span><span class="o">.</span><span class="n">PopulationW</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multinomial</span><span class="p">(</span><span class="n">Sub_pop</span><span class="p">,</span><span class="n">Syd_pop_perc</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">100000</span><span class="p">))</span><span class="o">/</span><span class="n">Sub_pop</span>
+    <span class="c1">#Calculating TVD</span>
+    <span class="n">variations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">samples</span> <span class="o">-</span> <span class="n">Syd_pop_perc</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1">#returning observed and sample TVD and the sample standard deviation</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Sub_pop_perc</span> <span class="o">-</span> <span class="n">Syd_pop_perc</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">variations</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">variations</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Testing the function with Artarmon</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">calculate_TVD</span><span class="p">(</span><span class="n">suburb_cbop</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Artarmon&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sydney_cbop</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;CBOP&#39;</span><span class="p">,</span> <span class="n">lsuffix</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(0.23101455275608415, 0.014353218703339833, 0.005699959579108245)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Next step is to call this function for all suburbs in the suburb_TVD table</span>
+<span class="c1">#and then fill in the actual and sample TVD values</span>
+<span class="k">for</span> <span class="n">suburb</span> <span class="ow">in</span> <span class="n">suburb_TVD</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">calculate_TVD</span><span class="p">(</span><span class="n">suburb_cbop</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">suburb</span><span class="p">]</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sydney_cbop</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;CBOP&#39;</span><span class="p">,</span> <span class="n">lsuffix</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">))</span>
+    <span class="n">suburb_TVD</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">suburb</span><span class="p">,</span> <span class="s1">&#39;observed_TVD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">suburb_TVD</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">suburb</span><span class="p">,</span> <span class="s1">&#39;sample_TVD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">suburb_TVD</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">suburb</span><span class="p">,</span> <span class="s1">&#39;sample_STD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">display</span><span class="p">(</span><span class="n">suburb_TVD</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Population</th>
+      <th>observed_TVD</th>
+      <th>sample_TVD</th>
+      <th>sample_STD</th>
+    </tr>
+    <tr>
+      <th>Suburb</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Abbotsbury</th>
+      <td>4248.0</td>
+      <td>0.189052</td>
+      <td>0.021538</td>
+      <td>0.008537</td>
+    </tr>
+    <tr>
+      <th>Abbotsford (NSW)</th>
+      <td>5375.0</td>
+      <td>0.134545</td>
+      <td>0.019082</td>
+      <td>0.007546</td>
+    </tr>
+    <tr>
+      <th>Acacia Gardens</th>
+      <td>3802.0</td>
+      <td>0.177846</td>
+      <td>0.022760</td>
+      <td>0.009045</td>
+    </tr>
+    <tr>
+      <th>Airds</th>
+      <td>2925.0</td>
+      <td>0.295935</td>
+      <td>0.025932</td>
+      <td>0.010273</td>
+    </tr>
+    <tr>
+      <th>Alexandria</th>
+      <td>8253.0</td>
+      <td>0.116368</td>
+      <td>0.015450</td>
+      <td>0.006120</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Yarrawarrah</th>
+      <td>2731.0</td>
+      <td>0.590341</td>
+      <td>0.026858</td>
+      <td>0.010650</td>
+    </tr>
+    <tr>
+      <th>Yellow Rock (Blue Mountains - NSW)</th>
+      <td>1042.0</td>
+      <td>0.583075</td>
+      <td>0.043546</td>
+      <td>0.017256</td>
+    </tr>
+    <tr>
+      <th>Yennora</th>
+      <td>1614.0</td>
+      <td>0.479971</td>
+      <td>0.034902</td>
+      <td>0.013820</td>
+    </tr>
+    <tr>
+      <th>Yowie Bay</th>
+      <td>3073.0</td>
+      <td>0.525761</td>
+      <td>0.025265</td>
+      <td>0.010013</td>
+    </tr>
+    <tr>
+      <th>Zetland</th>
+      <td>10080.0</td>
+      <td>0.638076</td>
+      <td>0.013930</td>
+      <td>0.005505</td>
+    </tr>
+  </tbody>
+</table>
+<p>674 rows × 4 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Calcualating deviations from mean for all suburbs</span>
+<span class="n">suburb_TVD</span><span class="p">[</span><span class="s1">&#39;devs_from_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">suburb_TVD</span><span class="o">.</span><span class="n">observed_TVD</span> <span class="o">-</span> <span class="n">suburb_TVD</span><span class="o">.</span><span class="n">sample_TVD</span><span class="p">)</span><span class="o">/</span><span class="n">suburb_TVD</span><span class="o">.</span><span class="n">sample_STD</span>
+<span class="n">suburb_TVD</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Population</th>
+      <th>observed_TVD</th>
+      <th>sample_TVD</th>
+      <th>sample_STD</th>
+      <th>devs_from_mean</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>674.000000</td>
+      <td>674.000000</td>
+      <td>674.000000</td>
+      <td>674.000000</td>
+      <td>674.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>7038.764095</td>
+      <td>0.336198</td>
+      <td>0.021271</td>
+      <td>0.008422</td>
+      <td>43.871629</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>6213.960783</td>
+      <td>0.165464</td>
+      <td>0.008553</td>
+      <td>0.003385</td>
+      <td>32.473338</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1003.000000</td>
+      <td>0.044193</td>
+      <td>0.006450</td>
+      <td>0.002564</td>
+      <td>2.406396</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>2847.000000</td>
+      <td>0.198069</td>
+      <td>0.014487</td>
+      <td>0.005733</td>
+      <td>22.075065</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>5098.000000</td>
+      <td>0.313934</td>
+      <td>0.019629</td>
+      <td>0.007766</td>
+      <td>35.218748</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>9389.000000</td>
+      <td>0.477288</td>
+      <td>0.026286</td>
+      <td>0.010405</td>
+      <td>55.409502</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>47173.000000</td>
+      <td>1.057948</td>
+      <td>0.044156</td>
+      <td>0.017531</td>
+      <td>218.335893</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">suburb_TVD</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;devs_from_mean&#39;</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Population</th>
+      <th>observed_TVD</th>
+      <th>sample_TVD</th>
+      <th>sample_STD</th>
+      <th>devs_from_mean</th>
+    </tr>
+    <tr>
+      <th>Suburb</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Mortlake (NSW)</th>
+      <td>1062.0</td>
+      <td>0.084012</td>
+      <td>0.043002</td>
+      <td>0.017042</td>
+      <td>2.406396</td>
+    </tr>
+    <tr>
+      <th>Point Piper</th>
+      <td>1414.0</td>
+      <td>0.094179</td>
+      <td>0.037289</td>
+      <td>0.014770</td>
+      <td>3.851866</td>
+    </tr>
+    <tr>
+      <th>Summer Hill (Inner West - NSW)</th>
+      <td>7303.0</td>
+      <td>0.044193</td>
+      <td>0.016425</td>
+      <td>0.006502</td>
+      <td>4.270783</td>
+    </tr>
+    <tr>
+      <th>Canada Bay</th>
+      <td>1246.0</td>
+      <td>0.107523</td>
+      <td>0.039757</td>
+      <td>0.015824</td>
+      <td>4.282415</td>
+    </tr>
+    <tr>
+      <th>North Willoughby</th>
+      <td>4176.0</td>
+      <td>0.061874</td>
+      <td>0.021679</td>
+      <td>0.008590</td>
+      <td>4.679585</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Liverpool</th>
+      <td>27090.0</td>
+      <td>0.637732</td>
+      <td>0.008523</td>
+      <td>0.003364</td>
+      <td>187.015285</td>
+    </tr>
+    <tr>
+      <th>Sydney</th>
+      <td>17249.0</td>
+      <td>0.835058</td>
+      <td>0.010656</td>
+      <td>0.004209</td>
+      <td>195.874182</td>
+    </tr>
+    <tr>
+      <th>Parramatta</th>
+      <td>25798.0</td>
+      <td>0.731907</td>
+      <td>0.008734</td>
+      <td>0.003467</td>
+      <td>208.612084</td>
+    </tr>
+    <tr>
+      <th>Hurstville</th>
+      <td>29832.0</td>
+      <td>0.692458</td>
+      <td>0.008111</td>
+      <td>0.003212</td>
+      <td>213.034828</td>
+    </tr>
+    <tr>
+      <th>Auburn (NSW)</th>
+      <td>37372.0</td>
+      <td>0.632927</td>
+      <td>0.007241</td>
+      <td>0.002866</td>
+      <td>218.335893</td>
+    </tr>
+  </tbody>
+</table>
+<p>674 rows × 5 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>From the calculation, it seems that most suburbs do not have a truly random population breakdown. Next, I will try to investigate this a bit more. Starting with a scatter plot of population and observed TVD</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">suburb_TVD</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Population&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;observed_TVD&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Observed TVD vs Suburb population&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I can observe no clear trend here. Intutively these results makes sense. I can highlight the the following reasons:</p>
+<ul>
+<li>There are no policies in place in Sydney to manage population compositions in locations</li>
+<li>This is not a truly independent distribution as I have assumed for eg: it is highly likely that 1 person of a particular nationality is married to a person of the same nationality  </li>
+<li>Anecdotally, a clustering behaviour is observed in Sydeny (eg: Vietnames concentration on Cabramatta). Th</li>
+</ul>
+<p>Total suburb population numbers point to a clusterng behaviour for groups of people from the same country/back g</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="mindfire83/deepdive"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/deepdive/jupyter/2021/05/11/Average-Sydney-Suburb-Nationality.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/deepdive/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/deepdive/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/deepdive/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>A personal journal and learning blog</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/deepdive/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
