@@ -640,7 +640,7 @@ Slope (y) =  2.4742514126098554
     <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Slope&quot;</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="n">interceptRange</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="n">slopeRange</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">HTML</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">include_plotlyjs</span><span class="o">=</span><span class="s1">&#39;cdn&#39;</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -765,7 +765,7 @@ if (outputEl) {{
             <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="n">beta1guess</span><span class="p">,</span> <span class="n">slope</span> <span class="o">+</span> <span class="mi">5</span><span class="p">],</span> <span class="n">row</span> <span class="o">=</span> <span class="n">j</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">i</span><span class="p">)</span>    
 <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">height</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
                  <span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Impact of learning rate on gradient descent solution convergence&quot;</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">HTML</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">include_plotlyjs</span><span class="o">=</span><span class="s1">&#39;cdn&#39;</span><span class="p">))</span>
 </pre></div>
 
     </div>
