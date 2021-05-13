@@ -10,13 +10,13 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="A personal journal and learning blog" />
 <meta property="og:description" content="A personal journal and learning blog" />
-<link rel="canonical" href="https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Exploring-Regression.html" />
-<meta property="og:url" content="https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Exploring-Regression.html" />
+<link rel="canonical" href="https://mindfire83.github.io/deepdive/jupyter/2021/05/12/Exploring-Regression.html" />
+<meta property="og:url" content="https://mindfire83.github.io/deepdive/jupyter/2021/05/12/Exploring-Regression.html" />
 <meta property="og:site_name" content="Deepdive" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-05-11T00:00:00-05:00" />
+<meta property="article:published_time" content="2021-05-12T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"A personal journal and learning blog","@type":"BlogPosting","headline":"First steps in regression (OLS and Gradient descent)","url":"https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Exploring-Regression.html","datePublished":"2021-05-11T00:00:00-05:00","dateModified":"2021-05-11T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Exploring-Regression.html"},"@context":"https://schema.org"}</script>
+{"description":"A personal journal and learning blog","@type":"BlogPosting","headline":"First steps in regression (OLS and Gradient descent)","url":"https://mindfire83.github.io/deepdive/jupyter/2021/05/12/Exploring-Regression.html","datePublished":"2021-05-12T00:00:00-05:00","dateModified":"2021-05-12T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://mindfire83.github.io/deepdive/jupyter/2021/05/12/Exploring-Regression.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/deepdive/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://mindfire83.github.io/deepdive/feed.xml" title="Deepdive" /><link rel="shortcut icon" type="image/x-icon" href="/deepdive/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>First steps in regression (OLS and Gradient descent) | Deepdive</title>
@@ -25,13 +25,13 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="A personal journal and learning blog" />
 <meta property="og:description" content="A personal journal and learning blog" />
-<link rel="canonical" href="https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Exploring-Regression.html" />
-<meta property="og:url" content="https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Exploring-Regression.html" />
+<link rel="canonical" href="https://mindfire83.github.io/deepdive/jupyter/2021/05/12/Exploring-Regression.html" />
+<meta property="og:url" content="https://mindfire83.github.io/deepdive/jupyter/2021/05/12/Exploring-Regression.html" />
 <meta property="og:site_name" content="Deepdive" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-05-11T00:00:00-05:00" />
+<meta property="article:published_time" content="2021-05-12T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"A personal journal and learning blog","@type":"BlogPosting","headline":"First steps in regression (OLS and Gradient descent)","url":"https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Exploring-Regression.html","datePublished":"2021-05-11T00:00:00-05:00","dateModified":"2021-05-11T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://mindfire83.github.io/deepdive/jupyter/2021/05/11/Exploring-Regression.html"},"@context":"https://schema.org"}</script>
+{"description":"A personal journal and learning blog","@type":"BlogPosting","headline":"First steps in regression (OLS and Gradient descent)","url":"https://mindfire83.github.io/deepdive/jupyter/2021/05/12/Exploring-Regression.html","datePublished":"2021-05-12T00:00:00-05:00","dateModified":"2021-05-12T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://mindfire83.github.io/deepdive/jupyter/2021/05/12/Exploring-Regression.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -103,8 +103,8 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">First steps in regression (OLS and Gradient descent)</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-05-11T00:00:00-05:00" itemprop="datePublished">
-        May 11, 2021
+    <h1 class="post-title p-name" itemprop="name headline">First steps in regression (OLS and Gradient descent)</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-05-12T00:00:00-05:00" itemprop="datePublished">
+        May 12, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
     
@@ -818,7 +818,7 @@ if (outputEl) {{
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As seen in the graphs above, in the gradient descent model, the learning rate impacts how the algorithm converges to a solution. Of particular interest is the Just right vs the Hot scenario. In the Just Right scenario, the algorithm converges to a solution. However a minute increase of 0.0005 in the learning rate causes the gradient descent model to vary widely and not converge to a solution.</p>
 <p>What I did not expect was the difference in convergence behaviour between $\beta_0$ and $\beta_1$. In the Cold scenario, $\beta_0$ does not converge, however $\beta_1$ conerges to a solution.</p>
-<p>This concludes my initial exploration of regression. In subsequent notebooks, I will apply my new found knowledge to more practical problems.</p>
+<p>This concludes my initial exploration of regression. In subsequent notebooks I will apply my new found knowledge to more practical problems.</p>
 
 </div>
 </div>
@@ -835,7 +835,7 @@ if (outputEl) {{
         theme="github-light"
         crossorigin="anonymous"
         async>
-</script><a class="u-url" href="/deepdive/jupyter/2021/05/11/Exploring-Regression.html" hidden></a>
+</script><a class="u-url" href="/deepdive/jupyter/2021/05/12/Exploring-Regression.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
